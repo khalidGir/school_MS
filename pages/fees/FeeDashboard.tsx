@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { CurrencyDollarIcon, ClockIcon, UserGroupIcon, PercentIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/outline'
+import { CurrencyDollarIcon, ClockIcon, UserGroupIcon, ChartBarIcon, ArrowTrendingUpIcon } from '@heroicons/react/24/outline'
 import { formatCurrency } from '../../utils/formatters'
 import feeService from '../../services/fee.service'
 import StatCard from '../../components/common/StatCard'
