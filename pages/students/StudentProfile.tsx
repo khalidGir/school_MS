@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { 
-  ArrowLeftIcon, PencilIcon, EnvelopeIcon, PhoneIcon, 
-  MapPinIcon, CalendarIcon, UserIcon, BanknotesIcon,
-  CheckCircleIcon, ClockIcon, ExclamationTriangleIcon
+import {
+  ArrowLeftIcon, PencilIcon,
+  CheckCircleIcon, ClockIcon, ExclamationTriangleIcon,
+  UserIcon, CalendarIcon, BanknotesIcon
 } from '@heroicons/react/24/outline'
 import { useToast } from '../../components/Toast'
 import studentService from '../../services/student.service'
@@ -11,16 +11,17 @@ import Button from '../../components/Button'
 import Badge from '../../components/Badge'
 import Card from '../../components/Card'
 import Tabs from '../../components/Tabs'
+import StudentCard from '../../components/StudentCard'
 
 const StudentProfile = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const toast = useToast()
-  const [student, setStudent] = useState(null)
+  const [student, setStudent] = useState<any>(null)
   const [loading, setLoading] = useState(true)
-  const [attendance, setAttendance] = useState([])
-  const [grades, setGrades] = useState([])
-  const [payments, setPayments] = useState([])
+  const [attendance, setAttendance] = useState<any[]>([])
+  const [grades, setGrades] = useState<any[]>([])
+  const [payments, setPayments] = useState<any[]>([])
 
   useEffect(() => {
     fetchStudent()
@@ -95,27 +96,31 @@ const StudentProfile = () => {
     {
       id: 'info',
       label: 'Information',
+      icon: UserIcon,
       content: (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           <Card>
-            <h3 className="font-medium text-gray-900 mb-4">Personal Information</h3>
+            <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+              <UserIcon className="w-5 h-5 text-primary" />
+              Personal Information
+            </h3>
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <UserIcon className="w-5 h-5 text-gray-400" />
-                <div>
+              <div className="flex items-start gap-3">
+                <UserIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-gray-500">Full Name</p>
-                  <p className="text-sm font-medium">{student.name}</p>
+                  <p className="text-sm font-medium truncate">{student.name}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <CalendarIcon className="w-5 h-5 text-gray-400" />
-                <div>
+              <div className="flex items-start gap-3">
+                <CalendarIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-gray-500">Date of Birth</p>
                   <p className="text-sm font-medium">{new Date(student.dateOfBirth).toLocaleDateString()}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <UserIcon className="w-5 h-5 text-gray-400" />
+              <div className="flex items-start gap-3">
+                <UserIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="text-xs text-gray-500">Gender</p>
                   <p className="text-sm font-medium">{student.gender}</p>
@@ -124,32 +129,35 @@ const StudentProfile = () => {
             </div>
           </Card>
           <Card>
-            <h3 className="font-medium text-gray-900 mb-4">Contact Information</h3>
+            <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+              <BanknotesIcon className="w-5 h-5 text-primary" />
+              Contact Information
+            </h3>
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <UserIcon className="w-5 h-5 text-gray-400" />
-                <div>
+              <div className="flex items-start gap-3">
+                <UserIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-gray-500">Parent/Guardian</p>
-                  <p className="text-sm font-medium">{student.parentName}</p>
+                  <p className="text-sm font-medium truncate">{student.parentName}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <EnvelopeIcon className="w-5 h-5 text-gray-400" />
-                <div>
+              <div className="flex items-start gap-3">
+                <UserIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-gray-500">Email</p>
-                  <p className="text-sm font-medium">{student.parentEmail}</p>
+                  <p className="text-sm font-medium truncate">{student.parentEmail}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <PhoneIcon className="w-5 h-5 text-gray-400" />
-                <div>
+              <div className="flex items-start gap-3">
+                <UserIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-gray-500">Phone</p>
-                  <p className="text-sm font-medium">{student.parentPhone}</p>
+                  <p className="text-sm font-medium truncate">{student.parentPhone}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <MapPinIcon className="w-5 h-5 text-gray-400" />
-                <div>
+              <div className="flex items-start gap-3">
+                <UserIcon className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />
+                <div className="min-w-0">
                   <p className="text-xs text-gray-500">Address</p>
                   <p className="text-sm font-medium">{student.address}</p>
                 </div>
@@ -162,20 +170,25 @@ const StudentProfile = () => {
     {
       id: 'payments',
       label: 'Payments',
+      icon: BanknotesIcon,
+      count: payments.length,
       content: (
         <Card>
-          <h3 className="font-medium text-gray-900 mb-4">Payment History</h3>
+          <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+            <BanknotesIcon className="w-5 h-5 text-primary" />
+            Payment History
+          </h3>
           {payments.length === 0 ? (
             <p className="text-gray-500 text-sm">No payment records found</p>
           ) : (
             <div className="space-y-3">
               {payments.map(payment => (
-                <div key={payment.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                  <div>
+                <div key={payment.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-4 bg-gray-50 rounded-lg gap-2">
+                  <div className="min-w-0">
                     <p className="text-sm font-medium">{new Date(payment.date).toLocaleDateString()}</p>
-                    <p className="text-xs text-gray-500">{payment.method} - {payment.reference}</p>
+                    <p className="text-xs text-gray-500 truncate">{payment.method} - {payment.reference}</p>
                   </div>
-                  <p className="text-lg font-semibold text-[#2c7a4d]">${payment.amount.toLocaleString()}</p>
+                  <p className="text-lg font-semibold text-[#2c7a4d] flex-shrink-0">${payment.amount.toLocaleString()}</p>
                 </div>
               ))}
             </div>
@@ -186,37 +199,67 @@ const StudentProfile = () => {
     {
       id: 'attendance',
       label: 'Attendance',
+      icon: CalendarIcon,
+      count: attendance.length,
       content: (
         <Card>
-          <h3 className="font-medium text-gray-900 mb-4">Recent Attendance</h3>
-          <div className="grid grid-cols-7 gap-2">
-            {attendance.slice(-14).map((record, i) => (
-              <div key={i} className="text-center">
-                <p className="text-xs text-gray-500 mb-1">{new Date(record.date).toLocaleDateString('en-US', { weekday: 'short' })}</p>
-                <div className={`w-full h-8 rounded flex items-center justify-center text-xs font-medium ${
-                  record.status === 'Present' ? 'bg-[#e8f5e9] text-[#2c7a4d]' :
-                  record.status === 'Late' ? 'bg-[#fef4e6] text-[#b45309]' :
-                  'bg-[#fee2e2] text-[#c73e2c]'
-                }`}>
-                  {record.status === 'Present' ? 'P' : record.status === 'Late' ? 'L' : 'A'}
+          <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+            <CalendarIcon className="w-5 h-5 text-primary" />
+            Recent Attendance
+          </h3>
+          {attendance.length === 0 ? (
+            <p className="text-gray-500 text-sm">No attendance records found</p>
+          ) : (
+            <>
+              <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+                {attendance.slice(-14).map((record, i) => (
+                  <div key={i} className="text-center">
+                    <p className="text-[10px] sm:text-xs text-gray-500 mb-1 truncate">{new Date(record.date).toLocaleDateString('en-US', { weekday: 'short' })}</p>
+                    <div className={`w-full h-8 sm:h-10 rounded-lg flex items-center justify-center text-xs font-medium ${
+                      record.status === 'Present' ? 'bg-[#e8f5e9] text-[#2c7a4d]' :
+                      record.status === 'Late' ? 'bg-[#fef4e6] text-[#b45309]' :
+                      'bg-[#fee2e2] text-[#c73e2c]'
+                    }`}>
+                      {record.status === 'Present' ? 'P' : record.status === 'Late' ? 'L' : 'A'}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-3 mt-4 pt-4 border-t border-gray-200 text-xs text-gray-500">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded bg-[#e8f5e9]" />
+                  <span>Present</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded bg-[#fef4e6]" />
+                  <span>Late</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <div className="w-3 h-3 rounded bg-[#fee2e2]" />
+                  <span>Absent</span>
                 </div>
               </div>
-            ))}
-          </div>
+            </>
+          )}
         </Card>
       )
     },
     {
       id: 'grades',
       label: 'Grades',
+      icon: CheckCircleIcon,
+      count: grades.length,
       content: (
         <Card>
-          <h3 className="font-medium text-gray-900 mb-4">Academic Records</h3>
+          <h3 className="font-medium text-gray-900 mb-4 flex items-center gap-2">
+            <CheckCircleIcon className="w-5 h-5 text-primary" />
+            Academic Records
+          </h3>
           {grades.length === 0 ? (
             <p className="text-gray-500 text-sm">No grade records found</p>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
+            <div className="table-responsive">
+              <table className="w-full min-w-[400px]">
                 <thead>
                   <tr className="border-b border-gray-200">
                     <th className="text-left py-2 text-xs font-medium text-gray-500">Subject</th>
@@ -249,58 +292,35 @@ const StudentProfile = () => {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center gap-4">
-        <button onClick={() => navigate('/students')} className="p-2 hover:bg-gray-100 rounded-lg">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
+        <button
+          onClick={() => navigate('/students')}
+          className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded-lg touch-target"
+          aria-label="Back to students"
+        >
           <ArrowLeftIcon className="w-5 h-5 text-gray-500" />
         </button>
-        <div className="flex-1">
-          <h1 className="text-xl font-semibold text-gray-900">Student Profile</h1>
+        <div className="flex-1 min-w-0">
+          <h1 className="text-lg sm:text-xl font-semibold text-gray-900 truncate">Student Profile</h1>
         </div>
-        <Button variant="secondary" onClick={() => navigate(`/students/${id}/edit`)}>
+        <Button variant="secondary" onClick={() => navigate(`/students/${id}/edit`)} className="min-h-[44px] flex-shrink-0">
           <PencilIcon className="w-4 h-4 mr-2" />
-          Edit
+          <span className="hidden sm:inline">Edit</span>
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        <Card className="lg:col-span-1">
-          <div className="flex flex-col items-center text-center">
-            <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center text-primary text-2xl font-semibold mb-4">
-              {student.name.split(' ').map(n => n[0]).join('')}
-            </div>
-            <h2 className="text-lg font-semibold text-gray-900">{student.name}</h2>
-            <p className="text-sm text-gray-500">{student.studentId}</p>
-            <div className="flex items-center gap-2 mt-2">
-              <Badge variant="primary">{student.grade}-{student.section}</Badge>
-              <Badge variant={student.status === 'Active' ? 'success' : 'default'}>{student.status}</Badge>
-            </div>
-          </div>
-          
-          <div className="mt-6 pt-6 border-t border-gray-200 space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-500">Attendance Rate</span>
-              <span className={`text-sm font-medium ${student.attendance >= 90 ? 'text-[#2c7a4d]' : 'text-[#b45309]'}`}>
-                {student.attendance}%
-              </span>
-            </div>
-            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-              <div 
-                className={`h-full rounded-full ${student.attendance >= 90 ? 'bg-[#2c7a4d]' : 'bg-[#b45309]'}`}
-                style={{ width: `${student.attendance}%` }}
-              />
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-500">Payment Status</span>
-              <Badge variant={student.paymentStatus === 'Paid' ? 'success' : student.paymentStatus === 'Partial' ? 'warning' : 'danger'}>
-                {student.paymentStatus}
-              </Badge>
-            </div>
-          </div>
-        </Card>
+      {/* Futuristic Football Player Card */}
+      <StudentCard
+        student={student}
+        attendance={attendance}
+        grades={grades}
+        payments={payments}
+      />
 
-        <div className="lg:col-span-2">
-          <Tabs tabs={tabs} defaultTab={0} variant="underline" />
-        </div>
+      {/* Tabs */}
+      <div className="mt-6">
+        <Tabs tabs={tabs} defaultTab={0} variant="underline" />
       </div>
     </div>
   )

@@ -5,17 +5,14 @@ import Header from './Header'
 
 function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [sidebarExpanded, setSidebarExpanded] = useState(true)
+  const [sidebarExpanded, setSidebarExpanded] = useState(() => window.innerWidth >= 1200)
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200)
-  const [isTablet, setIsTablet] = useState(window.innerWidth >= 768 && window.innerWidth < 1200)
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   useEffect(() => {
     const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1200)
-      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1200)
-      setIsMobile(window.innerWidth < 768)
-      if (window.innerWidth < 1200) {
+      const width = window.innerWidth
+      setIsDesktop(width >= 1200)
+      if (width < 1200) {
         setSidebarExpanded(false)
       }
     }
@@ -24,16 +21,12 @@ function Layout() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const getSidebarMargin = () => {
-    if (isMobile) return 'ml-0'
-    if (isTablet) return 'ml-[72px]'
-    return sidebarExpanded ? 'ml-[260px]' : 'ml-[72px]'
-  }
-
   return (
     <div className="flex min-h-screen bg-gray-50">
+      {/* Mobile/Tablet overlay sidebar */}
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
+      {/* Desktop sidebar */}
       {isDesktop && (
         sidebarExpanded ? (
           <ExpandedSidebar onCollapse={() => setSidebarExpanded(false)} />
@@ -42,9 +35,11 @@ function Layout() {
         )
       )}
 
-      <div className={`flex-1 flex flex-col transition-all duration-300 ${getSidebarMargin()}`}>
+      <div className={`flex-1 flex flex-col transition-all duration-300 ${
+        isDesktop ? (sidebarExpanded ? 'ml-[260px]' : 'ml-[72px]') : 'ml-0'
+      }`}>
         <Header onMenuClick={() => setSidebarOpen(true)} />
-        <main className="flex-1 max-w-[1440px] w-full mx-auto p-6" role="main">
+        <main className="flex-1 w-full p-4 sm:p-6 lg:max-w-[1440px] lg:mx-auto" role="main">
           <Outlet />
         </main>
       </div>
