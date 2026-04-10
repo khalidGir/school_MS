@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
-import { 
+import {
   HomeIcon, CloudArrowUpIcon, ChartBarIcon, Cog6ToothIcon, Bars3Icon, XMarkIcon,
   UserGroupIcon, CalendarDaysIcon, AcademicCapIcon, CurrencyDollarIcon, BookOpenIcon, MegaphoneIcon,
   ChevronDownIcon, ChevronRightIcon
@@ -66,6 +66,10 @@ const settingsSubMenu = [
   { to: '/settings/backup', label: 'Backup' },
 ]
 
+const navItemClass = "flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors min-h-[44px]"
+const navItemActiveClass = "text-primary border-l-[3px] border-primary bg-gray-50"
+const navItemInactiveClass = "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+
 function Sidebar({ isOpen, onClose }) {
   const [expandedMenus, setExpandedMenus] = useState({})
 
@@ -79,11 +83,11 @@ function Sidebar({ isOpen, onClose }) {
       <div key={key}>
         <button
           onClick={() => toggleMenu(key)}
-          className="w-full flex items-center gap-3 px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+          className={`w-full ${navItemClass} ${navItemInactiveClass}`}
         >
-          <Icon className="w-5 h-5" aria-hidden="true" />
+          <Icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
           <span className="flex-1 text-left">{label}</span>
-          {isExpanded ? <ChevronDownIcon className="w-4 h-4" /> : <ChevronRightIcon className="w-4 h-4" />}
+          {isExpanded ? <ChevronDownIcon className="w-4 h-4 flex-shrink-0" /> : <ChevronRightIcon className="w-4 h-4 flex-shrink-0" />}
         </button>
         {isExpanded && (
           <div className="bg-gray-50">
@@ -94,13 +98,13 @@ function Sidebar({ isOpen, onClose }) {
                 end={item.to === '/'}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 pl-12 pr-6 py-2.5 text-sm transition-colors ${
+                  `flex items-center gap-3 pl-12 pr-6 py-2.5 text-sm transition-colors min-h-[44px] ${
                     isActive ? 'text-primary font-medium' : 'text-gray-500 hover:text-gray-900'
                   }`
                 }
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-current" />
-                {item.label}
+                <div className="w-1.5 h-1.5 rounded-full bg-current flex-shrink-0" />
+                <span className="truncate">{item.label}</span>
               </NavLink>
             ))}
           </div>
@@ -115,15 +119,15 @@ function Sidebar({ isOpen, onClose }) {
         <div className="fixed inset-0 bg-black/50 z-40 xl:hidden" onClick={onClose} role="presentation" />
       )}
       <aside
-        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 flex flex-col z-50 transition-transform duration-300 xl:hidden ${
+        className={`fixed top-0 left-0 h-full bg-white border-r border-gray-200 flex flex-col z-50 transition-transform duration-300 ${
           isOpen ? 'translate-x-0 w-[280px]' : '-translate-x-full w-[280px]'
-        }`}
+        } xl:hidden`}
         role="navigation"
         aria-label="Main navigation"
       >
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200">
           <h1 className="text-lg font-semibold text-primary">SchoolPay Ledger</h1>
-          <button onClick={onClose} className="p-2 -mr-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md" aria-label="Close menu">
+          <button onClick={onClose} className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center -mr-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md touch-target" aria-label="Close menu">
             <XMarkIcon className="w-5 h-5" />
           </button>
         </div>
@@ -137,12 +141,10 @@ function Sidebar({ isOpen, onClose }) {
                 end={to === '/'}
                 onClick={onClose}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors ${
-                    isActive ? 'text-primary border-l-[3px] border-primary bg-gray-50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
-                  }`
+                  `${navItemClass} ${isActive ? navItemActiveClass : navItemInactiveClass}`
                 }
               >
-                <Icon className="w-5 h-5" aria-hidden="true" />
+                <Icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
                 {label}
               </NavLink>
             )
@@ -174,7 +176,7 @@ function CollapsedSidebar({ onExpand }) {
       role="navigation"
       aria-label="Collapsed navigation"
     >
-      <button onClick={onExpand} className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md" aria-label="Expand menu">
+      <button onClick={onExpand} className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md touch-target" aria-label="Expand menu">
         <Bars3Icon className="w-6 h-6" />
       </button>
       <nav className="flex-1 mt-4 flex flex-col items-center gap-1">
@@ -187,7 +189,7 @@ function CollapsedSidebar({ onExpand }) {
               end={to === '/'}
               title={label}
               className={({ isActive }) =>
-                `p-3 rounded-lg transition-colors ${isActive ? 'text-primary bg-gray-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`
+                `p-3 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-lg transition-colors ${isActive ? 'text-primary bg-gray-50' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}`
               }
               aria-label={label}
             >
@@ -213,11 +215,11 @@ function ExpandedSidebar({ onCollapse }) {
       <div key={key}>
         <button
           onClick={() => toggleMenu(key)}
-          className="w-full flex items-center gap-3 px-6 py-3 text-sm font-medium text-gray-500 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+          className={`w-full ${navItemClass} ${navItemInactiveClass}`}
         >
-          <Icon className="w-5 h-5" aria-hidden="true" />
+          <Icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
           <span className="flex-1 text-left">{label}</span>
-          {isExpanded ? <ChevronDownIcon className="w-4 h-4" /> : <ChevronRightIcon className="w-4 h-4" />}
+          {isExpanded ? <ChevronDownIcon className="w-4 h-4 flex-shrink-0" /> : <ChevronRightIcon className="w-4 h-4 flex-shrink-0" />}
         </button>
         {isExpanded && (
           <div className="bg-gray-50">
@@ -227,13 +229,13 @@ function ExpandedSidebar({ onCollapse }) {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 pl-12 pr-6 py-2.5 text-sm transition-colors ${
+                  `flex items-center gap-3 pl-12 pr-6 py-2.5 text-sm transition-colors min-h-[44px] ${
                     isActive ? 'text-primary font-medium' : 'text-gray-500 hover:text-gray-900'
                   }`
                 }
               >
-                <div className="w-1.5 h-1.5 rounded-full bg-current" />
-                {item.label}
+                <div className="w-1.5 h-1.5 rounded-full bg-current flex-shrink-0" />
+                <span className="truncate">{item.label}</span>
               </NavLink>
             ))}
           </div>
@@ -249,8 +251,8 @@ function ExpandedSidebar({ onCollapse }) {
       aria-label="Expanded navigation"
     >
       <div className="h-16 flex items-center justify-between px-6 border-b border-gray-200">
-        <h1 className="text-lg font-semibold text-primary">SchoolPay Ledger</h1>
-        <button onClick={onCollapse} className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md" aria-label="Collapse menu">
+        <h1 className="text-lg font-semibold text-primary truncate">SchoolPay Ledger</h1>
+        <button onClick={onCollapse} className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md touch-target" aria-label="Collapse menu">
           <Bars3Icon className="w-5 h-5" />
         </button>
       </div>
@@ -263,12 +265,10 @@ function ExpandedSidebar({ onCollapse }) {
               to={to}
               end={to === '/'}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-6 py-3 text-sm font-medium transition-colors ${
-                  isActive ? 'text-primary border-l-[3px] border-primary bg-gray-50' : 'text-gray-500 hover:text-gray-900 hover:bg-gray-50'
-                }`
+                `${navItemClass} ${isActive ? navItemActiveClass : navItemInactiveClass}`
               }
             >
-              <Icon className="w-5 h-5" aria-hidden="true" />
+              <Icon className="w-5 h-5 flex-shrink-0" aria-hidden="true" />
               {label}
             </NavLink>
           )
