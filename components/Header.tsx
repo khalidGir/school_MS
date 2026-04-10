@@ -80,24 +80,24 @@ function Header({ onMenuClick }) {
   const pageName = pageTitleOverrides[location.pathname] || pageNames[location.pathname] || 'Dashboard'
 
   return (
-    <header className="h-16 bg-white border-b border-gray-200 px-6 flex items-center justify-between" role="banner">
-      <div className="flex items-center gap-4">
+    <header className="h-16 bg-white border-b border-gray-200 px-4 sm:px-6 flex items-center justify-between gap-2 sm:gap-4" role="banner">
+      <div className="flex items-center gap-2 sm:gap-4 min-w-0">
         <button
           onClick={onMenuClick}
-          className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md lg:hidden mr-2"
+          className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md xl:hidden touch-target"
           aria-label="Open menu"
         >
           <Bars3Icon className="w-5 h-5" />
         </button>
-        <nav className="flex items-center gap-2 text-sm text-gray-500" aria-label="Breadcrumb">
-          <span className="font-medium text-gray-900">{pageName}</span>
+        <nav className="flex items-center gap-2 text-sm text-gray-500 min-w-0" aria-label="Breadcrumb">
+          <span className="font-medium text-gray-900 truncate">{pageName}</span>
         </nav>
       </div>
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 border border-gray-200 rounded-md px-3 py-1.5" role="group" aria-label="Month selector">
+      <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+        <div className="hidden sm:flex items-center gap-2 border border-gray-200 rounded-md px-3 py-1.5" role="group" aria-label="Month selector">
           <button
             onClick={handlePrevMonth}
-            className="p-1 hover:bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="p-1 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 touch-target"
             aria-label="Previous month"
           >
             <ChevronLeftIcon className="w-4 h-4 text-gray-500" />
@@ -108,14 +108,14 @@ function Header({ onMenuClick }) {
           </span>
           <button
             onClick={handleNextMonth}
-            className="p-1 hover:bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-primary/20"
+            className="p-1 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-gray-100 rounded focus:outline-none focus:ring-2 focus:ring-primary/20 touch-target"
             aria-label="Next month"
           >
             <ChevronRightIcon className="w-4 h-4 text-gray-500" />
           </button>
         </div>
         <div
-          className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-medium"
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-primary flex items-center justify-center text-white text-sm font-medium flex-shrink-0"
           role="img"
           aria-label="User avatar"
         >
