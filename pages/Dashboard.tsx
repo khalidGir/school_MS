@@ -338,8 +338,7 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-start justify-between gap-5">
-        <div className="grid grid-cols-2 xl:grid-cols-4 gap-5 flex-1">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5">
           {loading ? (
             <>
               {[1,2,3,4].map(i => <MetricCardSkeleton key={i} />)}
@@ -357,43 +356,42 @@ const Dashboard = () => {
               />
             ))
           )}
-        </div>
       </div>
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-200/50 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="px-4 sm:px-6 py-4 border-b border-gray-200">
+          <div className="flex flex-col gap-4">
             <h3 className="text-base font-medium text-gray-900">Recent Payments</h3>
-            
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="relative">
+
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="relative flex-1 max-w-md">
                 <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search students..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-9 pr-4 py-2 border border-gray-200 rounded-md text-sm w-48 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  className="pl-9 pr-4 py-2 border border-gray-200 rounded-md text-sm w-full focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary min-h-[44px]"
                 />
               </div>
               
-              <div className="flex items-center gap-2">
-                <FunnelIcon className="w-4 h-4 text-gray-400" />
+              <div className="flex flex-wrap items-center gap-2">
+                <FunnelIcon className="w-4 h-4 text-gray-400 flex-shrink-0" />
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  className="px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary min-h-[44px]"
                 >
                   <option value="all">All Status</option>
                   <option value="Paid">Paid</option>
                   <option value="Partial">Partial</option>
                   <option value="Unpaid">Unpaid</option>
                 </select>
-                
+
                 <select
                   value={gradeFilter}
                   onChange={(e) => setGradeFilter(e.target.value)}
-                  className="px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  className="px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary min-h-[44px]"
                 >
                   <option value="all">All Grades</option>
                   {uniqueGrades.map(grade => (
@@ -402,9 +400,9 @@ const Dashboard = () => {
                 </select>
               </div>
 
-              <Link to="/upload" className="btn-primary ml-auto">
+              <Link to="/upload" className="btn-primary ml-auto min-h-[44px] flex items-center justify-center">
                 <ArrowUpTrayIcon className="w-4 h-4 mr-2 inline" />
-                Upload
+                <span className="hidden sm:inline">Upload</span>
               </Link>
             </div>
           </div>
